@@ -1,24 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Deck : MonoBehaviour
 {
     public int availableCards;
     public int totalCards;
     public int allocatedCards;
-    
+    public List<ScriptableObject> cardList;
+    public List<ScriptableObject> currentCards;
+
+    System.Random rnd = new System.Random();
+
     void Start()
     {
+        GenerateDeck();
         allocatedCards = 0;
         totalCards = allocatedCards;
         availableCards = totalCards;
         //allocatedCards represents the amount of cards allocated for each player out of the total shared card deck.
         //totalCards represents the totalCards in each individual players deck.
         //availableCards is how many cards are currently inside of the available deck. Once the player cycles through this amount, the deck will reshuffle itself.
-        
+        HandManager.Instance.GetCards(currentCards);
     }
 
+    void GenerateDeck()
+    {
+        for (int i = 0; i < totalCards; i++)
+        {
+            currentCards.Add(cardList[rnd.Next(cardList.Count)]);
+        }
+    }
     
     void Update()
     {
