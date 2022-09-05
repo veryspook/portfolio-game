@@ -35,7 +35,7 @@ public class Deck : MonoBehaviour
     
     void Update()
     {
-        
+
     }
 
     public void ReceiveCards(int cards)
