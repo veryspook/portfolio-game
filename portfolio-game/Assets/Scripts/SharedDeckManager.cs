@@ -7,7 +7,7 @@ public class SharedDeckManager : MonoBehaviour
     int allCards;
     public int cardsPerPlayer;
 
-    public int amountOfPlayers;
+    public static int amountOfPlayers;
 
     public GameObject deck;
     //public GameObject deck2;
@@ -20,8 +20,6 @@ public class SharedDeckManager : MonoBehaviour
     
     void Start()
     {
-        amountOfPlayers = 2;
-        //for now, I've set the amountOfPlayers = 2. We can write a function once multiplayer is integrated to count players in the game.
         allCards = 120;
         cardsPerPlayer = allCards / amountOfPlayers;
         //distrubutes allCards among amountOfPlayers
