@@ -10,7 +10,6 @@ public class CardController : MonoBehaviour
     {
         if (card.bidValue > 0)
         {
-            Debug.Log(card.bidValue);
             GameManager.instance.ChangeBid(card.bidValue);
         }
         Destroy(this.gameObject);

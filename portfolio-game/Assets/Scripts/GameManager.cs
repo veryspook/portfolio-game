@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 
@@ -15,10 +16,18 @@ public class GameManager : MonoBehaviour
     public List<string> treasureNames;
     public List<string> heirloomNames;
 
-    public List<List<string>> rarityNames = new List<List<string>>();
-    public TextMeshProUGUI artifactText;
-    public TextMeshProUGUI bidText;
+    public List<string> rarityNames;
+
+    public int artifactValue;
+    public string rarity;
     public int bidNumber;
+    public int points;
+
+    public TextMeshProUGUI artifactText;
+    public GameObject artifactSprite;
+    public TextMeshProUGUI bidText;
+    public TextMeshProUGUI pointsText;
+
 
     System.Random rnd = new System.Random();
 
@@ -27,19 +36,43 @@ public class GameManager : MonoBehaviour
         //Gets reference to artifact from list
         GameObject artifactRef = artifacts[rnd.Next(artifacts.Count)];
 
-        //Creates artifact in scene
-        GameObject artifact = Instantiate(artifactRef, new Vector3(0, 0, 0), Quaternion.identity);
-        artifact.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        //changes sprite in scene to artifact sprite
+        artifactSprite.GetComponent<Image>().sprite = artifactRef.GetComponent<SpriteRenderer>().sprite;
 
-        //List<string> rarityNames = namesList[rnd.Next(0,3)];
-        List<string> getNames = rarityNames[rnd.Next(rarityNames.Count)];
+        artifactValue = rnd.Next(100, 400);
 
-        artifactText.text = artifactRef.name + " of " + getNames[rnd.Next(getNames.Count)];
-        //Debug.Log(rarityNames);
+        if (artifactValue <= 175)
+        {
+            rarity = "Garbage";
+            rarityNames = garbageNames;
+        }
+        else if (175 < artifactValue && artifactValue <= 250)
+        {
+            rarity = "Valuable";
+            rarityNames = valuableNames;
+        }
+        else if (250 < artifactValue && artifactValue <= 325)
+        {
+            rarity = "Treasure";
+            rarityNames = treasureNames;
+        }
+        else
+        {
+            rarity = "Heirloom";
+            rarityNames = heirloomNames;
+        }
+
+        //changes text in scene to randomly generated artifact name
+        artifactText.text = artifactRef.name + " of " + rarityNames[rnd.Next(rarityNames.Count)];
     }
 
-    void OnTurnStart()
+    public void OnTurnStart()
     {
+        points += artifactValue;
+        pointsText.text = $"{points}";
+        Debug.Log(artifactValue);
+        bidNumber = 0;
+        bidText.text = $"{bidNumber}";
         CreateArtifact();
     }
 
@@ -53,10 +86,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        rarityNames.Add(garbageNames);
-        rarityNames.Add(valuableNames);
-        rarityNames.Add(treasureNames);
-        rarityNames.Add(heirloomNames);
         OnTurnStart();
     }
 

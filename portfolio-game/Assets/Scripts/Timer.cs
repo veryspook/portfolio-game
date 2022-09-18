@@ -49,5 +49,7 @@ public class Timer : MonoBehaviour
     {
         uiFill.fillAmount = Mathf.InverseLerp(0, 0, 0);
         //End turn when timer is done
+        GameManager.instance.OnTurnStart();
+        Being(Duration);
     }
 }
