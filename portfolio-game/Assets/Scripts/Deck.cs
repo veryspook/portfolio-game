@@ -15,24 +15,25 @@ public class Deck : MonoBehaviour
 
     void Start()
     {
-        GenerateDeck();
-        allocatedCards = 0;
+        //GenerateDeck();
+        allocatedCards = 10;
         totalCards = allocatedCards;
         availableCards = totalCards;
         //allocatedCards represents the amount of cards allocated for each player out of the total shared card deck.
         //totalCards represents the totalCards in each individual players deck.
         //availableCards is how many cards are currently inside of the available deck. Once the player cycles through this amount, the deck will reshuffle itself.
-        HandManager.Instance.GetCards(currentCards);
     }
 
-    void GenerateDeck()
+    public void GenerateDeck()
     {
-        for (int i = 0; i < totalCards; i++)
+        for (int i = 0; i < 10; i++)
         {
             currentCards.Add(cardList[rnd.Next(cardList.Count)]);
         }
+        HandManager.instance.GetCards(currentCards);
+        currentCards = new List<ScriptableObject>();
     }
-    
+
     void Update()
     {
 

@@ -8,9 +8,9 @@ public class Timer : MonoBehaviour
     [SerializeField] private Image uiFill;
     [SerializeField] private TextMeshProUGUI text;
 
-    public int Duration;
+    public float Duration;
 
-    private int remainingDuration;
+    public float remainingDuration;
 
     private bool Pause;
 
@@ -18,35 +18,36 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         Being(Duration);
-        Debug.Log("thisran");
     }
 
     // Update is called once per frame
-    private void Being(int Second)
+    private void Being(float Second)
     {
         remainingDuration = Second;
         StartCoroutine(UpdateTimer());
-        Debug.Log("thisran");
+
     }
 
     private IEnumerator UpdateTimer()
     {
         while (remainingDuration >= 0)
         {
-            if (!Pause)
-            {
-                text.text = $"{remainingDuration}";
-                uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
-                remainingDuration--;
-                yield return new WaitForSeconds(1f);
-            }
-            yield return null;
+            text.text = $"{(int)(remainingDuration)}";
+                    if (!Pause)
+                    {
+                        uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
+                        remainingDuration -= 0.1f;
+                        yield return new WaitForSeconds(0.1f);
+                        text.text = $"{(int)(remainingDuration)}";
+                    }
         }
+        yield return null;
         OnEnd();
     }
 
     private void OnEnd()
     {
+        uiFill.fillAmount = Mathf.InverseLerp(0, 0, 0);
         //End turn when timer is done
     }
 }

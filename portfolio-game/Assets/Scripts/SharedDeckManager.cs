@@ -23,7 +23,6 @@ public class SharedDeckManager : MonoBehaviour
         allCards = 120;
         cardsPerPlayer = allCards / amountOfPlayers;
         //distrubutes allCards among amountOfPlayers
-
         deck.GetComponent<Deck>().ReceiveCards(cardsPerPlayer);
     }
 

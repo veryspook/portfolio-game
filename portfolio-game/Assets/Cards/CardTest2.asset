@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 1
   cardName: Live
   cardDesc: You Live
-  bidValue: 3
+  bidValue: 25
   image: {fileID: 21300000, guid: 5348a94a5931d92419579a8a4b082859, type: 3}

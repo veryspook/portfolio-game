@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
-
-    public static HandManager Instance;
+    public static HandManager instance;
     public List<Card> Hand = new List<Card>();
 
     public Transform HandContent;
@@ -23,7 +22,7 @@ public class HandManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
     //Adds a card to the Hand list with an input of a Card prefab object
@@ -38,7 +37,6 @@ public class HandManager : MonoBehaviour
         Hand.Remove(card);
     }
 
-
     public void ShowHand()
     {
         //Deletes duplicate cards 
@@ -52,6 +50,7 @@ public class HandManager : MonoBehaviour
             GameObject obj = Instantiate(CardInHand, HandContent);
             var cardName = obj.transform.Find("CardText").GetComponent<TMPro.TextMeshProUGUI>();
             var cardImage = obj.transform.Find("CardImage").GetComponent<Image>();
+            obj.GetComponent<CardController>().card = card;
 
             cardName.text = card.cardName;
             cardImage.sprite = card.image;
