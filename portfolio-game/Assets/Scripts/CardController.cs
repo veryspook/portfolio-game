@@ -8,10 +8,6 @@ public class CardController : MonoBehaviour
 
     public void UseCard()
     {
-        if (card.bidValue > 0)
-        {
-            GameManager.instance.ChangeBid(card.bidValue);
-        }
         Destroy(this.gameObject);
         HandManager.instance.Remove(card);
     }

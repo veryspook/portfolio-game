@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour
 
     public int artifactValue;
     public string rarity;
+    public int tempBidNumber;
     public int bidNumber;
     public int points;
 
     public TextMeshProUGUI artifactText;
     public GameObject artifactSprite;
     public TextMeshProUGUI bidText;
+    public TextMeshProUGUI tempBidText;
     public TextMeshProUGUI pointsText;
 
 
@@ -72,14 +74,32 @@ public class GameManager : MonoBehaviour
         pointsText.text = $"{points}";
         Debug.Log(artifactValue);
         bidNumber = 0;
+        tempBidNumber = 0;
         bidText.text = $"{bidNumber}";
+        tempBidText.text = $"{tempBidNumber}";
         CreateArtifact();
+    }
+
+    public void ConfirmBid()
+    {
+        bidNumber += tempBidNumber;
+        tempBidNumber = 0;
+        bidText.text = $"{bidNumber}";
+        tempBidText.text = $"{tempBidNumber}";
     }
 
     public void ChangeBid(int bid)
     {
-        bidNumber += bid;
-        bidText.text = $"{bidNumber}";
+        tempBidNumber += bid;
+        if (tempBidNumber < 0)
+            tempBidNumber = 0;
+        if (tempBidNumber < 0)
+            tempBidText.text = $"-{tempBidNumber}";
+        else if (tempBidNumber > 0)
+            tempBidText.text = $"+{tempBidNumber}";
+        else
+            tempBidText.text = "0";
+
     }
 
     // Start is called before the first frame update
