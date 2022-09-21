@@ -7,6 +7,6 @@ public class Card : ScriptableObject
     public int id;
     public string cardName;
     public string cardDesc;
-    public int bidValue;
+    public int timeAffect;
     public Sprite image;
 }
