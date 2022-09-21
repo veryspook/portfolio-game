@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: CardTest2
   m_EditorClassIdentifier: 
   id: 1
+<<<<<<< Updated upstream
   cardName: Live
   cardDesc: You Live
   bidValue: 25
   image: {fileID: 21300000, guid: 5348a94a5931d92419579a8a4b082859, type: 3}
+=======
+  cardName: 20 Gold
+  cardDesc: Bid 20
+  timeAffect: 0
+  bidValue: 20
+  cardEffect: 0
+  image: {fileID: 21300000, guid: f86eef7e1865bcb43afb83e9a8f76c20, type: 3}
+>>>>>>> Stashed changes
