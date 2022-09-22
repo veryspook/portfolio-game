@@ -16,4 +16,6 @@ MonoBehaviour:
   cardName: 10 Gold
   cardDesc: Bid 10
   timeAffect: 0
+  bidValue: 10
+  cardEffect: 0
   image: {fileID: 21300000, guid: f86eef7e1865bcb43afb83e9a8f76c20, type: 3}
