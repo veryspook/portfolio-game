@@ -7,6 +7,7 @@ public class HandManager : MonoBehaviour
 {
     public static HandManager instance;
     public List<Card> Hand = new List<Card>();
+    public List<Card> tempHand = new List<Card>();
 
     public Transform HandContent;
     public GameObject CardInHand;

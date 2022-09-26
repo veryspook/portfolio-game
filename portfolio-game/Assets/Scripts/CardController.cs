@@ -11,8 +11,9 @@ public class CardController : MonoBehaviour
         if (card.bidValue > 0)
         {
             GameManager.instance.ChangeBid(card.bidValue);
+            HandManager.instance.tempHand.Add(card);
         }
-        Destroy(this.gameObject);
-        HandManager.instance.Remove(card);
+            Destroy(this.gameObject);
+            HandManager.instance.Remove(card);
     }
 }

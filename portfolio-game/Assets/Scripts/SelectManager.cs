@@ -20,18 +20,18 @@ public class SelectManager : MonoBehaviour
     public void OneOpponent()
     {
         SceneManager.LoadScene("SampleScene");
-        SharedDeckManager.amountOfPlayers += 1;
+        SharedDeckManager.amountOfPlayers = 1;
     }
 
     public void TwoOpponent()
     {
         SceneManager.LoadScene("SampleScene");
-        SharedDeckManager.amountOfPlayers += 2;
+        SharedDeckManager.amountOfPlayers = 2;
     }
 
     public void ThreeOpponent()
     {
         SceneManager.LoadScene("SampleScene");
-        SharedDeckManager.amountOfPlayers += 3;
+        SharedDeckManager.amountOfPlayers = 3;
     }
 }

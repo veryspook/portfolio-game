@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
 
     //DO NOT TURN TO STATIC it will remove all the existing values
     public List<GameObject> artifacts;
+    public List<Image> angelSprites;
+    public List<Image> demonSprites;
+    public List<Image> eldritchSprites;
+    public List<Image> druidSprites;
     public List<string> garbageNames;
     public List<string> valuableNames;
     public List<string> treasureNames;
@@ -24,6 +28,11 @@ public class GameManager : MonoBehaviour
     public int bidNumber;
     public int points;
 
+    public GameObject cancelButton;
+    public GameObject player;
+    public GameObject opponent1;
+    public GameObject opponent2;
+    public GameObject opponent3;
     public TextMeshProUGUI artifactText;
     public GameObject artifactSprite;
     public TextMeshProUGUI bidText;
@@ -82,23 +91,33 @@ public class GameManager : MonoBehaviour
 
     public void ConfirmBid()
     {
+        cancelButton.SetActive(false);
         bidNumber += tempBidNumber;
         tempBidNumber = 0;
         bidText.text = $"{bidNumber}";
         tempBidText.text = $"{tempBidNumber}";
+        HandManager.instance.tempHand = new List<Card>();
+    }
+
+    public void RejectBid()
+    {
+        cancelButton.SetActive(false);
+        tempBidNumber = 0;
+        tempBidText.text = $"{tempBidNumber}";
+        foreach (var Card in HandManager.instance.tempHand)
+        {
+            HandManager.instance.Add(Card);
+        }
+        HandManager.instance.tempHand = new List<Card>();
+        HandManager.instance.ShowHand();
     }
 
     public void ChangeBid(int bid)
     {
+        cancelButton.SetActive(true);
         tempBidNumber += bid;
-        if (tempBidNumber < 0)
-            tempBidNumber = 0;
-        if (tempBidNumber < 0)
-            tempBidText.text = $"-{tempBidNumber}";
-        else if (tempBidNumber > 0)
+        if (tempBidNumber > 0)
             tempBidText.text = $"+{tempBidNumber}";
-        else
-            tempBidText.text = "0";
 
     }
 
@@ -107,6 +126,16 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         OnTurnStart();
+        if (SharedDeckManager.amountOfPlayers == 2)
+        {
+            opponent2.SetActive(true);
+            opponent3.SetActive(false);
+        }
+        if (SharedDeckManager.amountOfPlayers == 3)
+        {
+            opponent2.SetActive(true);
+            opponent3.SetActive(true);
+        }
     }
 
     // Update is called once per frame
