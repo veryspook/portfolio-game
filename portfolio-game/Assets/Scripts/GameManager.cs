@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         artifactText.text = artifactRef.name + " of " + rarityNames[rnd.Next(rarityNames.Count)];
     }
 
-    public void OnTurnStart()
+    public void OnRoundStart()
     {
         points += artifactValue;
         pointsText.text = $"{points}";
@@ -87,6 +87,12 @@ public class GameManager : MonoBehaviour
         bidText.text = $"{bidNumber}";
         tempBidText.text = $"{tempBidNumber}";
         CreateArtifact();
+    }
+
+    public void OnTurnStart()
+    {
+        tempBidNumber = 0;
+        tempBidText.text = $"{tempBidNumber}";
     }
 
     public void ConfirmBid()
@@ -118,6 +124,8 @@ public class GameManager : MonoBehaviour
         tempBidNumber += bid;
         if (tempBidNumber > 0)
             tempBidText.text = $"+{tempBidNumber}";
+        if (tempBidNumber < 0)
+            tempBidText.text = $"-{tempBidNumber}";
 
     }
 
@@ -125,7 +133,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        OnTurnStart();
+        OnRoundStart();
         if (SharedDeckManager.amountOfPlayers == 2)
         {
             opponent2.SetActive(true);

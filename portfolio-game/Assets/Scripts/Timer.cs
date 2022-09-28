@@ -14,10 +14,16 @@ public class Timer : MonoBehaviour
 
     private bool Pause;
 
+    private bool keepArtifact;
+
+    [SerializeField] private int turnsPassed;
+
     // Start is called before the first frame update
     private void Start()
     {
         Being(Duration);
+        turnsPassed = 0;
+        keepArtifact = true;
     }
 
     // Update is called once per frame
@@ -25,7 +31,6 @@ public class Timer : MonoBehaviour
     {
         remainingDuration = Second;
         StartCoroutine(UpdateTimer());
-
     }
 
     private IEnumerator UpdateTimer()
@@ -49,7 +54,26 @@ public class Timer : MonoBehaviour
     {
         uiFill.fillAmount = Mathf.InverseLerp(0, 0, 0);
         //End turn when timer is done
-        GameManager.instance.OnTurnStart();
+        if (keepArtifact == false)
+        {
+            GameManager.instance.OnRoundStart();
+            
+        }
+        else
+        {
+            GameManager.instance.OnTurnStart();
+            
+        }
+        turnsPassed += 1;
+        if (turnsPassed != 2)
+        {
+            keepArtifact = true;
+        }
+        else
+        {
+            keepArtifact = false;
+            turnsPassed = 0;
+        }
         Being(Duration);
     }
 }

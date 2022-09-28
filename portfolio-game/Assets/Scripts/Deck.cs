@@ -16,7 +16,7 @@ public class Deck : MonoBehaviour
     void Start()
     {
         //GenerateDeck();
-        allocatedCards = 10;
+        allocatedCards = 8;
         totalCards = allocatedCards;
         availableCards = totalCards;
         //allocatedCards represents the amount of cards allocated for each player out of the total shared card deck.
@@ -26,7 +26,7 @@ public class Deck : MonoBehaviour
 
     public void GenerateDeck()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 8; i++)
         {
             currentCards.Add(cardList[rnd.Next(cardList.Count)]);
         }

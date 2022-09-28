@@ -13,6 +13,19 @@ public class CardController : MonoBehaviour
             GameManager.instance.ChangeBid(card.bidValue);
             HandManager.instance.tempHand.Add(card);
         }
+        else
+        {
+            if (card.cardEffect == 0)
+            {
+                GameManager.instance.ChangeBid(card.bidValue);
+                HandManager.instance.tempHand.Add(card);
+            }
+            else
+            {
+                //then the card is an action effect card.
+                Debug.Log("Action Card Effect Happened!");
+            }
+        }
             Destroy(this.gameObject);
             HandManager.instance.Remove(card);
     }
