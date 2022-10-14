@@ -11,12 +11,16 @@ public class Deck : MonoBehaviour
     public List<ScriptableObject> cardList;
     public List<ScriptableObject> currentCards;
 
+    public HandManager handManagerScript;
+
     System.Random rnd = new System.Random();
+
+    public int cardDifference;
 
     void Start()
     {
         //GenerateDeck();
-        allocatedCards = 8;
+        //allocatedCards = 8;
         totalCards = allocatedCards;
         availableCards = totalCards;
         //allocatedCards represents the amount of cards allocated for each player out of the total shared card deck.
@@ -26,7 +30,7 @@ public class Deck : MonoBehaviour
 
     public void GenerateDeck()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
             currentCards.Add(cardList[rnd.Next(cardList.Count)]);
         }
@@ -36,7 +40,7 @@ public class Deck : MonoBehaviour
 
     void Update()
     {
-
+    
     }
 
     public void ReceiveCards(int cards)

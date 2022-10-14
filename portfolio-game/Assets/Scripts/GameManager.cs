@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int tempBidNumber;
     public int bidNumber;
     public int points;
+    public int roundCounter;
 
     public GameObject cancelButton;
     public GameObject player;
@@ -39,6 +40,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI tempBidText;
     public TextMeshProUGUI pointsText;
 
+    public TextMeshProUGUI roundText;
+    public TextMeshProUGUI artifactValueText;
+
+    public GameObject handManager;
+    public GameObject OpponentManager;
+
+    public OpponentManager opponentManagerScript;
 
     System.Random rnd = new System.Random();
 
@@ -79,20 +87,35 @@ public class GameManager : MonoBehaviour
 
     public void OnRoundStart()
     {
-        points += artifactValue;
+        roundCounter += 1;
+        if (bidNumber > opponentManagerScript.op1Bid && bidNumber > opponentManagerScript.op2Bid && bidNumber > opponentManagerScript.op3Bid)
+        {
+            points += artifactValue;
+        }
         pointsText.text = $"{points}";
-        Debug.Log(artifactValue);
+        //Debug.Log(artifactValue);
+        handManager.GetComponent<Deck>().GenerateDeck();
+        HandManager.instance.ShowHand();
+        OpponentManager.GetComponent<OpponentManager>().RoundStart();
+        //Calls RoundStart() in OpponentManager to activate AI behavoir (such as getting points if they win) per round- which is every 3 turns.
         bidNumber = 0;
         tempBidNumber = 0;
         bidText.text = $"{bidNumber}";
         tempBidText.text = $"{tempBidNumber}";
         CreateArtifact();
+        artifactValueText.text = $"{artifactValue}";
+        roundText.text = "Round " + roundCounter;
+        //roundCounter int used to count up amount of rounds passed. Clears every 3 rounds passed to dictate when a round is over and begin a new one.
     }
 
     public void OnTurnStart()
     {
         tempBidNumber = 0;
         tempBidText.text = $"{tempBidNumber}";
+        handManager.GetComponent<Deck>().GenerateDeck();
+        HandManager.instance.ShowHand();
+        OpponentManager.GetComponent<OpponentManager>().TurnStart();
+        //Calls TurnStart() in OpponentManager to activate AI bids per turn.
     }
 
     public void ConfirmBid()
@@ -125,13 +148,18 @@ public class GameManager : MonoBehaviour
         if (tempBidNumber > 0)
             tempBidText.text = $"+{tempBidNumber}";
         if (tempBidNumber < 0)
-            tempBidText.text = $"-{tempBidNumber}";
+            tempBidText.text = $"{tempBidNumber}";
+        if (tempBidNumber == 0)
+        {
+            tempBidText.text = $"{tempBidNumber}";
+        }
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        roundCounter = 0;
         instance = this;
         OnRoundStart();
         if (SharedDeckManager.amountOfPlayers == 2)
@@ -144,6 +172,7 @@ public class GameManager : MonoBehaviour
             opponent2.SetActive(true);
             opponent3.SetActive(true);
         }
+        
     }
 
     // Update is called once per frame

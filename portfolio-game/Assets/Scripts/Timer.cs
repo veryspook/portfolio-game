@@ -65,7 +65,7 @@ public class Timer : MonoBehaviour
             
         }
         turnsPassed += 1;
-        if (turnsPassed != 2)
+        if (turnsPassed != 3)
         {
             keepArtifact = true;
         }
