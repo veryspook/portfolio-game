@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         tempBidText.text = $"{tempBidNumber}";
         CreateArtifact();
         artifactValueText.text = $"{artifactValue}";
-        roundText.text = "Round " + roundCounter;
+        roundText.text = "Round " + roundCounter + "/3";
         //roundCounter int used to count up amount of rounds passed. Clears every 3 rounds passed to dictate when a round is over and begin a new one.
     }
 
