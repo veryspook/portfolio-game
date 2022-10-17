@@ -26,6 +26,14 @@ public class Timer : MonoBehaviour
         keepArtifact = true;
     }
 
+    private IEnumerator OnRoundStart()
+    {
+        Pause = true;
+        yield return new WaitForSeconds(5.0f);
+        remainingDuration = 10.0f;
+        Pause = false;
+    }
+
     // Update is called once per frame
     private void Being(float Second)
     {
@@ -38,7 +46,7 @@ public class Timer : MonoBehaviour
         while (remainingDuration >= 0)
         {
             text.text = $"{(int)(remainingDuration)}";
-                    if (!Pause)
+            if (!Pause)
                     {
                         uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
                         remainingDuration -= 0.1f;
@@ -54,6 +62,7 @@ public class Timer : MonoBehaviour
     {
         uiFill.fillAmount = Mathf.InverseLerp(0, 0, 0);
         //End turn when timer is done
+        //StartCoroutine(OnRoundStart());
         if (keepArtifact == false)
         {
             GameManager.instance.OnRoundStart();

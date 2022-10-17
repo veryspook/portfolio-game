@@ -62,4 +62,10 @@ public class HandManager : MonoBehaviour
             cardImage.sprite = card.image;
         }
     }
+
+    public void FillHand()
+    {
+        //refresh hand up to certain amount
+        //give maxHand - currentHand
+    }
 }

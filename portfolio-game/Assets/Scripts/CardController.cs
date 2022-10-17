@@ -15,7 +15,7 @@ public class CardController : MonoBehaviour
         }
         else
         {
-            if (card.cardEffect == 0)
+            if (card.bidValue < 0)
             {
                 GameManager.instance.ChangeBid(card.bidValue);
                 HandManager.instance.tempHand.Add(card);
