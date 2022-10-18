@@ -87,7 +87,8 @@ public class GameManager : MonoBehaviour
 
     public void OnRoundStart()
     {
-        roundCounter += 1;
+        roundCounter = 0;
+        roundText.text = "Round " + roundCounter + "/3";
         if (bidNumber > opponentManagerScript.op1Bid && bidNumber > opponentManagerScript.op2Bid && bidNumber > opponentManagerScript.op3Bid)
         {
             points += artifactValue;
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour
         tempBidText.text = $"{tempBidNumber}";
         CreateArtifact();
         artifactValueText.text = $"{artifactValue}";
-        roundText.text = "Round " + roundCounter + "/3";
+       
         //roundCounter int used to count up amount of rounds passed. Clears every 3 rounds passed to dictate when a round is over and begin a new one.
     }
 
@@ -115,6 +116,8 @@ public class GameManager : MonoBehaviour
         handManager.GetComponent<Deck>().GenerateDeck();
         HandManager.instance.ShowHand();
         OpponentManager.GetComponent<OpponentManager>().TurnStart();
+        roundCounter += 1;
+        roundText.text = "Round " + roundCounter + "/3";
         //Calls TurnStart() in OpponentManager to activate AI bids per turn.
     }
 
@@ -122,8 +125,8 @@ public class GameManager : MonoBehaviour
     {
         cancelButton.SetActive(false);
         bidNumber += tempBidNumber;
-        tempBidNumber = 0;
         bidText.text = $"{bidNumber}";
+        tempBidNumber = 0;
         tempBidText.text = $"{tempBidNumber}";
         HandManager.instance.tempHand = new List<Card>();
     }
@@ -160,6 +163,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         roundCounter = 0;
+        roundText.text = "Round " + roundCounter + "/3";
         instance = this;
         OnRoundStart();
         if (SharedDeckManager.amountOfPlayers == 2)

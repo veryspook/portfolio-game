@@ -30,6 +30,8 @@ public class OpponentManager : MonoBehaviour
     [SerializeField] public int op3Bid;
     private bool op3Active;
 
+    
+
     private int aiBidDecider;
     private int aiBidDecider2;
     private int aiBidDecider3;
@@ -69,6 +71,7 @@ public class OpponentManager : MonoBehaviour
             if (op1Bid > op2Bid && op1Bid > op3Bid && op1Bid > gameManager.bidNumber)
             {
                 op1Points += gameManager.artifactValue;
+                
             }
             op1PointsText.text = $"{op1Points}";
             op1Bid = 0;
@@ -80,6 +83,7 @@ public class OpponentManager : MonoBehaviour
             if (op2Bid > op1Bid && op2Bid > op3Bid && op2Bid > gameManager.bidNumber)
             {
                 op2Points += gameManager.artifactValue;
+                
             }
             op2PointsText.text = $"{op2Points}";
             op2Bid = 0;
@@ -91,6 +95,7 @@ public class OpponentManager : MonoBehaviour
             if (op3Bid > op1Bid && op3Bid > op2Bid && op3Bid > gameManager.bidNumber)
             {
                 op3Points += gameManager.artifactValue;
+               
             }
             op3PointsText.text = $"{op3Points}";
             op3Bid = 0;
@@ -106,7 +111,7 @@ public class OpponentManager : MonoBehaviour
         {
             
             AIBid();
-            op1Bid = aiBidDecider;
+            op1Bid += aiBidDecider;
             op1BidText.text = $"{op1Bid}";
             
         }
@@ -115,7 +120,7 @@ public class OpponentManager : MonoBehaviour
         {
             
             AIBid2();
-            op2Bid = aiBidDecider2;
+            op2Bid += aiBidDecider2;
             op2BidText.text = $"{op2Bid}";
             
         }
@@ -124,7 +129,7 @@ public class OpponentManager : MonoBehaviour
         {
             
             AIBid3();
-            op3Bid = aiBidDecider3;
+            op3Bid += aiBidDecider3;
             op3BidText.text = $"{op3Bid}";
             
         }
@@ -169,4 +174,6 @@ public class OpponentManager : MonoBehaviour
         }
     }
     //AIBid with a different function for each AI opponent to seperate values. creates some random bid values for the bots.
+
+    
 }

@@ -16,7 +16,12 @@ public class Timer : MonoBehaviour
 
     private bool keepArtifact;
 
+    private bool timerStop;
+
     [SerializeField] private int turnsPassed;
+
+    public GameObject hostessTextObject;
+    public TextMeshProUGUI hostessText;
 
     // Start is called before the first frame update
     private void Start()
@@ -24,6 +29,7 @@ public class Timer : MonoBehaviour
         Being(Duration);
         turnsPassed = 0;
         keepArtifact = true;
+        timerStop = false;
     }
 
     private IEnumerator OnRoundStart()
@@ -47,12 +53,30 @@ public class Timer : MonoBehaviour
         {
             text.text = $"{(int)(remainingDuration)}";
             if (!Pause)
-                    {
-                        uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
-                        remainingDuration -= 0.1f;
-                        yield return new WaitForSeconds(0.1f);
-                        text.text = $"{(int)(remainingDuration)}";
-                    }
+            {
+                if (timerStop == true)
+                {
+                    //update this later to print which player won the round
+                    hostessTextObject.SetActive(true);
+                    hostessText.text = "Round Over.";
+                    //
+                    yield return new WaitForSeconds(5f);
+                    hostessTextObject.SetActive(false);
+                    uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
+                    remainingDuration -= 0.1f;
+                    yield return new WaitForSeconds(0.1f);
+                    text.text = $"{(int)(remainingDuration)}";
+                    timerStop = false;
+                }
+                if (timerStop == false)
+                {
+                    uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
+                    remainingDuration -= 0.1f;
+                    yield return new WaitForSeconds(0.1f);
+                    text.text = $"{(int)(remainingDuration)}";
+                }
+            }
+
         }
         yield return null;
         OnEnd();
@@ -65,8 +89,8 @@ public class Timer : MonoBehaviour
         //StartCoroutine(OnRoundStart());
         if (keepArtifact == false)
         {
-            GameManager.instance.OnRoundStart();
-            
+            timerStop = true;
+            Invoke("AfterRoundDialogue", 5f);
         }
         else
         {
@@ -84,5 +108,10 @@ public class Timer : MonoBehaviour
             turnsPassed = 0;
         }
         Being(Duration);
+    }
+
+    public void AfterRoundDialogue()
+    {
+        GameManager.instance.OnRoundStart();
     }
 }
